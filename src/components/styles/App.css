@@ -1,0 +1,26 @@
+.loader{
+    width: 100%;
+    
+}
+.loader_section{
+    width:300px;
+    height: 400px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading_ring{
+    width: 30px;
+    height: 30px;
+    border: 8px solid black;
+    border-bottom: 8px solid rgb(15, 219, 255);
+    border-radius: 70px;
+    animation: loading 0.4s linear infinite;
+}
+
+@keyframes loading{
+    100%{
+        transform: rotate(360deg);
+    }
+}
