@@ -149,7 +149,7 @@ const updateNote=()=>{
             <i onClick={closeNoteform}>&times;</i>
             <h2><center>NOTE APPLICATION</center></h2>
             <TextField id="outlined-basic" label="Title" variant="outlined" value={title}  onChange={(e)=>setTitle(e.target.value)} />
-             <TextareaAutosize aria-label="minimum height" minRows={5} value={desc} placeholder="Enter your content" onChange={(e)=>setDesc(e.target.value)} />;
+             <TextareaAutosize aria-label="minimum height" minRows={5} value={desc} placeholder="Enter your content" onChange={(e)=>setDesc(e.target.value)} />
             {isEdit ? 
             <Button onClick={updateNote} variant="contained" color="primary">Update</Button>
             :<Button onClick={addNote} variant="contained" color="primary">Submit</Button>
