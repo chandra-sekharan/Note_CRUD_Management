@@ -67,6 +67,7 @@ const addNote=()=> {
          setDesc('');
          setData(true)
          setAlertMsg("Note Created Successfully");
+         closeNoteform();
        })
 
   }  
@@ -128,6 +129,7 @@ const updateNote=()=>{
       setDesc('');
       setData(true)
       setAlertMsg("Note Updated Successfully");
+      closeNoteform();
     })
 
   }
