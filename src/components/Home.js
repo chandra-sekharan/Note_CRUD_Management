@@ -14,6 +14,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Typography } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
+import Loader from './loader';;
 
 const Home = ({setDetails})=>{
 
@@ -27,6 +28,7 @@ const Home = ({setDetails})=>{
     const [fail,setFail] = useState(false);
     const [errMsg , setErr] = useState('');
     const [alertMsg , setAlertMsg] =useState("");
+    const [loader , setloader] =useState(false);
     
     //Dailog box open and close methods    
   
@@ -57,11 +59,12 @@ const handleRegister = async (e) =>{
        alert("Pasword Mismatch")
      }else{
         try{
+            setloader(true);
              const result = await createUserWithEmailAndPassword(auth,email,password);              setSuccess(true);
                setAlertMsg("Registration Success");
                localStorage.setItem('NoteManagement' , JSON.stringify(result));       
                setDetails(result);
-
+               setloader(false);
              setTimeout(()=>{
                  navigate('/dashboard')
               },1200)
@@ -70,6 +73,7 @@ const handleRegister = async (e) =>{
             catch (error){
               setFail(true);
               setAlertMsg("Registration Failed");
+              setloader(false);
               setErr(error);
             }
       }
@@ -81,11 +85,13 @@ const handleRegister = async (e) =>{
             alert("Details Required")
         }else{
             try{
+                setloader(true);
                const result = await signInWithEmailAndPassword(auth,email,password);
                  setSuccess(true);
                  setAlertMsg("Login Success");
                  localStorage.setItem('NoteManagement' , JSON.stringify(result));       
                  setDetails(result)
+                setloader(false);
                setTimeout(()=>{
                   navigate('/dashboard')
                 },1200)
@@ -94,6 +100,7 @@ const handleRegister = async (e) =>{
               catch (error){
                  setFail(true);
                  setAlertMsg("Login Failed");
+                 setloader(false);
                  setErr(error);
                }
         }
@@ -118,7 +125,10 @@ const handleRegister = async (e) =>{
 
     return(
      <div className="home_container">
-        {/*Alert snackbars */}
+       {loader ? <Loader/>
+      :
+      <>
+        
             <Snackbar open={fail} anchorOrigin={{ vertical:'top', horizontal:'center' }} autoHideDuration={6000} onClose={handleClosebar}>
              <Alert onClose={handleClosebar} severity="error">
               {alertMsg + " "+ errMsg}
@@ -175,7 +185,8 @@ const handleRegister = async (e) =>{
             <Button variant="contained" size="large" color="secondary" onClick={handleLogin}>Login</Button>
             <Button variant="contained" size="large" color="primary" onClick={handleopen}>Register</Button>
             </div>
-            
+         </>
+      }
       </div>
     )
 }
